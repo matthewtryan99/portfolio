@@ -12,6 +12,35 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/integration
+            emailjs.init('user_Ubqy3JTmVaiN62C8A9QX7');
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                // these IDs from the previous steps
+                emailjs.sendForm('service_v0q0hct', 'template_zyrxmdu', this)
+                    .then(function() {
+                        console.log('SUCCESS!');
+						confirm("your message has been sent")
+						document.getElementById('name').value = '';
+						document.getElementById('email').value = '';
+						document.getElementById('message').value = '';
+                    }, function(error) {
+                        console.log('FAILED...', error);
+						alert("your message failed to send")
+                    });
+            });
+        }
+    </script>
+
 	<body class="is-preload">
 
 		<!-- Wrapper -->
@@ -165,7 +194,7 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="#">
+							<form id="contact-form">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
